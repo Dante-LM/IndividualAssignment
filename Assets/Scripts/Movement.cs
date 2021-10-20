@@ -25,9 +25,14 @@ public class Movement : MonoBehaviour
         
     }
 
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawSphere(transform.position + new Vector3(0, -1.25f, 0), 0.2f);
+    }
+
     void Update()
     {
-        isGrounded = Physics.CheckSphere(transform.position, 1.33f, groundMask);
+        isGrounded = Physics.CheckSphere(transform.position + new Vector3(0, -1.25f, 0), 0.2f, groundMask);
         if (isGrounded)
         {
             verticalVelocity.y = 0;

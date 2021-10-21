@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpHeight = 2f;
     bool jump;
 
-    [SerializeField] float gravity = -9.81f;
+    [SerializeField] float gravity = -39.24f;
     Vector3 verticalVelocity = Vector3.zero;
     [SerializeField] LayerMask groundMask;
     bool isGrounded;

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [SerializeField] float sensitivityX = 8f;
-    [SerializeField] float sensitivityY = 0.5f;
+    [SerializeField] float sensitivityX = 20f;
+    [SerializeField] float sensitivityY = 0.1f;
     float mouseX, mouseY;
 
     [SerializeField] Transform playerCamera;

@@ -1996,8 +1996,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4db7f1c9e4ab44e8be01a1aa1ea1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 300
-  sensitivityY: 0.5
+  sensitivityX: 20
+  sensitivityY: 0.1
   playerCamera: {fileID: 1182182291345278995}
   xClamp: 80
 --- !u!1 &7169186792694223093

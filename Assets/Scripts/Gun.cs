@@ -5,6 +5,7 @@ using UnityEngine;
 public class Gun : MonoBehaviour
 {
     public Transform gunBarrel;
+    public Transform bulletTracer;
 
     [SerializeField] float range = Mathf.Infinity;
 
@@ -15,6 +16,7 @@ public class Gun : MonoBehaviour
 
     public void Shoot()
     {
+        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
         RaycastHit hit;
         if(Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
         {

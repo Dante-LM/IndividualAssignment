@@ -42,6 +42,6 @@ public class Gun : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Debug.DrawRay(gunBarrel.position, gunBarrel.TransformDirection(Vector3.forward) * range, Color.yellow);
+        Debug.DrawRay(gunBarrel.position, gunBarrel.TransformDirection(Vector3.forward) * range, Color.red);
     }
 }

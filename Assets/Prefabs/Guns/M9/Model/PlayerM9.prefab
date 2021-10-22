@@ -1877,7 +1877,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   controller: {fileID: 6009885323776790713}
-  speed: 10
+  speed: 7
   jumpHeight: 2
   gravity: -39.24
   groundMask:
@@ -1895,8 +1895,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4db7f1c9e4ab44e8be01a1aa1ea1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 20
-  sensitivityY: 0.1
+  sensitivityX: 0.2
+  sensitivityY: 0.2
   playerCamera: {fileID: 5693242439939932759}
   xClamp: 80
 --- !u!1 &5706605092264550814

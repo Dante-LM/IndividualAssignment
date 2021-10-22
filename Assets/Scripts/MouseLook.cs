@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [SerializeField] float sensitivityX = 20f;
-    [SerializeField] float sensitivityY = 0.1f;
+    [SerializeField] float sensitivityX = 0.2f;
+    [SerializeField] float sensitivityY = 0.2f;
     float mouseX, mouseY;
 
     [SerializeField] Transform playerCamera;
@@ -19,7 +19,7 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.up, mouseX * Time.deltaTime);
+        transform.Rotate(Vector3.up, (mouseX * 1000)* Time.deltaTime);
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -xClamp, xClamp);
@@ -30,7 +30,7 @@ public class MouseLook : MonoBehaviour
 
     public void ReceiveInput(Vector2 mouseInput)
     {
-        mouseX = mouseInput.x * sensitivityX;
-        mouseY = mouseInput.y * sensitivityY;
+        mouseX = (mouseInput.x * sensitivityX) / 10;
+        mouseY = (mouseInput.y * sensitivityY) / 10;
     }
 }

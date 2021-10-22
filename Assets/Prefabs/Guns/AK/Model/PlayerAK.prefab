@@ -1391,7 +1391,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunBarrel: {fileID: 1707972819907625094}
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
+  muzzleFlash: {fileID: 0}
   range: 50
+  fireRate: 10
+  rapidFire: 1
 --- !u!114 &3904652608569524106
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1406,7 +1409,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gunBarrel: {fileID: 1707972819907625094}
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
+  muzzleFlash: {fileID: 0}
   range: Infinity
+  fireRate: 5
+  rapidFire: 0
 --- !u!1 &5352500466082496725
 GameObject:
   m_ObjectHideFlags: 0

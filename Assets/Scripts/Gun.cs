@@ -6,12 +6,17 @@ public class Gun : MonoBehaviour
 {
     public Transform gunBarrel;
     public Transform bulletTracer;
+    public GameObject muzzleFlash;
 
     [SerializeField] float range = Mathf.Infinity;
+    [SerializeField] float fireRate = 5f;
+    [SerializeField] bool rapidFire = false;
+
+    WaitForSeconds rapidFireWait;
 
     private void Awake()
     {
-        
+        rapidFireWait = new WaitForSeconds(1 / fireRate);
     }
 
     public void Shoot()
@@ -23,9 +28,6 @@ public class Gun : MonoBehaviour
             if(hit.collider.GetComponent<Damageable>() != null)
             {
                 hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
-            }
-            {
-                
             }
         }
     }
@@ -43,5 +45,22 @@ public class Gun : MonoBehaviour
     private void FixedUpdate()
     {
         Debug.DrawRay(gunBarrel.position, gunBarrel.TransformDirection(Vector3.forward) * range, Color.red);
+    }
+
+    public IEnumerator RapidFire()
+    {
+        if (rapidFire)
+        {
+            while (true)
+            {
+                Shoot();
+                yield return rapidFireWait;
+            }
+        } 
+        else
+        {
+            Shoot();
+            yield return null;
+        }
     }
 }

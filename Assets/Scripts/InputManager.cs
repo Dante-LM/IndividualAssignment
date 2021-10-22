@@ -14,6 +14,8 @@ public class InputManager : MonoBehaviour
     Vector2 horizontalInput;
     Vector2 mouseInput;
 
+    Coroutine fireCoroutine;
+
     private void Awake()
     {
         controls = new PlayerControls();
@@ -24,7 +26,8 @@ public class InputManager : MonoBehaviour
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
 
-        groundMovement.Shoot.performed += _ => gun.Shoot();
+        groundMovement.Shoot.started += _ => StartFiring();
+        groundMovement.Shoot.canceled += _ => StopFiring();
     }
 
     private void OnEnable()
@@ -46,5 +49,18 @@ public class InputManager : MonoBehaviour
     {
         movement.ReceiveInput(horizontalInput);
         mouseLook.ReceiveInput(mouseInput);
+    }
+
+    void StartFiring()
+    {
+        fireCoroutine = StartCoroutine(gun.RapidFire());
+    }
+
+    void StopFiring()
+    {
+        if(fireCoroutine != null)
+        {
+            StopCoroutine(fireCoroutine);
+        }
     }
 }

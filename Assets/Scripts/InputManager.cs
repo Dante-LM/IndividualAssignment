@@ -53,14 +53,21 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
+        Flash(true);
         fireCoroutine = StartCoroutine(gun.RapidFire());
     }
 
     void StopFiring()
     {
-        if(fireCoroutine != null)
+        Flash(false);
+        if (fireCoroutine != null)
         {
             StopCoroutine(fireCoroutine);
         }
+    }
+
+    void Flash(bool onOrOff)
+    {
+        gun.MuzzleFlash(onOrOff);
     }
 }

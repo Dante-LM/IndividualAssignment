@@ -17,8 +17,9 @@ public class Gun : MonoBehaviour
     private void Awake()
     {
         rapidFireWait = new WaitForSeconds(1 / fireRate);
+        muzzleFlash.SetActive(false);
     }
-
+    
     public void Shoot()
     {
         Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
@@ -34,17 +35,12 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        
+
     }
 
     void Update()
     {
-        
-    }
 
-    private void FixedUpdate()
-    {
-        Debug.DrawRay(gunBarrel.position, gunBarrel.TransformDirection(Vector3.forward) * range, Color.red);
     }
 
     public IEnumerator RapidFire()
@@ -62,5 +58,10 @@ public class Gun : MonoBehaviour
             Shoot();
             yield return null;
         }
+    }
+
+    public void MuzzleFlash(bool onOrOff)
+    {
+        muzzleFlash.SetActive(onOrOff);
     }
 }

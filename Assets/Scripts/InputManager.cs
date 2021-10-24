@@ -21,7 +21,11 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        gun = weapons[0].GetComponentInChildren<Gun>();
+        if (weapons[0].activeInHierarchy)
+            gun = weapons[0].GetComponentInChildren<Gun>();
+        else
+            gun = weapons[1].GetComponentInChildren<Gun>();
+
 
         controls = new PlayerControls();
         groundMovement = controls.GroundMovement;

@@ -14,6 +14,6 @@ public class Tracer : MonoBehaviour
     void Update()
     {
         transform.position += transform.forward * Time.deltaTime * movementSpeed;
-        Destroy(this.gameObject, 0.1f);
+        Destroy(this.gameObject, 10f);
     }
 }

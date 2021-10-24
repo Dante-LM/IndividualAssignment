@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
+    public GameObject[] weapons = new GameObject[2];
+
     [SerializeField] Movement movement;
     [SerializeField] MouseLook mouseLook;
     [SerializeField] Gun gun;
@@ -15,6 +17,7 @@ public class InputManager : MonoBehaviour
     Vector2 mouseInput;
 
     Coroutine fireCoroutine;
+    private bool isFiring;
 
     private void Awake()
     {
@@ -22,7 +25,12 @@ public class InputManager : MonoBehaviour
         groundMovement = controls.GroundMovement;
 
         groundMovement.HorizontalMovement.performed += ctx => horizontalInput = ctx.ReadValue<Vector2>();
+
         groundMovement.Jump.performed += _ => movement.OnJumpPressed();
+
+        groundMovement.PrimaryWeapon.performed += _ => EquipPrimary();
+        groundMovement.SecondaryWeapon.performed += _ => EquipSecondary();
+
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
 
@@ -53,12 +61,14 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
+        isFiring = true;
         Flash(true);
         fireCoroutine = StartCoroutine(gun.RapidFire());
     }
 
     void StopFiring()
     {
+        isFiring = false;
         Flash(false);
         if (fireCoroutine != null)
         {
@@ -69,5 +79,25 @@ public class InputManager : MonoBehaviour
     void Flash(bool onOrOff)
     {
         gun.MuzzleFlash(onOrOff);
+    }
+
+    void EquipPrimary()
+    {
+        if (!isFiring)
+        {
+            gun = weapons[0].GetComponentInChildren<Gun>();
+            weapons[0].SetActive(true);
+            weapons[1].SetActive(false);
+        }            
+    }
+
+    void EquipSecondary()
+    {
+        if (!isFiring)
+        {
+            gun = weapons[1].GetComponentInChildren<Gun>();
+            weapons[1].SetActive(true);
+            weapons[0].SetActive(false);
+        }            
     }
 }

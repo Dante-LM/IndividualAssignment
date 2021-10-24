@@ -59,9 +59,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""WeaponChange"",
+                    ""name"": ""PrimaryWeapon"",
                     ""type"": ""Button"",
-                    ""id"": ""df80e5de-e922-4ed9-b4a3-8347da6dbae2"",
+                    ""id"": ""9f852552-d0c1-4e8f-9cbc-0ac32f69a59d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""SecondaryWeapon"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ada6b25-022c-498b-9bd8-df621d9cacef"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -169,23 +177,23 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""d4951c82-114c-4088-90ec-7cbea1949a15"",
+                    ""id"": ""f2364369-bdf4-4719-a9b2-d4d6f212f464"",
                     ""path"": ""<Keyboard>/1"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponChange"",
+                    ""action"": ""PrimaryWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
-                    ""id"": ""92eb8032-29b1-481f-b222-8c8d56b02fba"",
+                    ""id"": ""51ea2aff-5046-4455-8336-db63e4f18fb8"",
                     ""path"": ""<Keyboard>/2"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""WeaponChange"",
+                    ""action"": ""SecondaryWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -201,7 +209,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_GroundMovement_MouseX = m_GroundMovement.FindAction("MouseX", throwIfNotFound: true);
         m_GroundMovement_MouseY = m_GroundMovement.FindAction("MouseY", throwIfNotFound: true);
         m_GroundMovement_Shoot = m_GroundMovement.FindAction("Shoot", throwIfNotFound: true);
-        m_GroundMovement_WeaponChange = m_GroundMovement.FindAction("WeaponChange", throwIfNotFound: true);
+        m_GroundMovement_PrimaryWeapon = m_GroundMovement.FindAction("PrimaryWeapon", throwIfNotFound: true);
+        m_GroundMovement_SecondaryWeapon = m_GroundMovement.FindAction("SecondaryWeapon", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -256,7 +265,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_GroundMovement_MouseX;
     private readonly InputAction m_GroundMovement_MouseY;
     private readonly InputAction m_GroundMovement_Shoot;
-    private readonly InputAction m_GroundMovement_WeaponChange;
+    private readonly InputAction m_GroundMovement_PrimaryWeapon;
+    private readonly InputAction m_GroundMovement_SecondaryWeapon;
     public struct GroundMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -266,7 +276,8 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @MouseX => m_Wrapper.m_GroundMovement_MouseX;
         public InputAction @MouseY => m_Wrapper.m_GroundMovement_MouseY;
         public InputAction @Shoot => m_Wrapper.m_GroundMovement_Shoot;
-        public InputAction @WeaponChange => m_Wrapper.m_GroundMovement_WeaponChange;
+        public InputAction @PrimaryWeapon => m_Wrapper.m_GroundMovement_PrimaryWeapon;
+        public InputAction @SecondaryWeapon => m_Wrapper.m_GroundMovement_SecondaryWeapon;
         public InputActionMap Get() { return m_Wrapper.m_GroundMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -291,9 +302,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Shoot.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnShoot;
                 @Shoot.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnShoot;
                 @Shoot.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnShoot;
-                @WeaponChange.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnWeaponChange;
-                @WeaponChange.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnWeaponChange;
-                @WeaponChange.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnWeaponChange;
+                @PrimaryWeapon.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPrimaryWeapon;
+                @PrimaryWeapon.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPrimaryWeapon;
+                @PrimaryWeapon.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPrimaryWeapon;
+                @SecondaryWeapon.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
+                @SecondaryWeapon.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
+                @SecondaryWeapon.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
             }
             m_Wrapper.m_GroundMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -313,9 +327,12 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Shoot.started += instance.OnShoot;
                 @Shoot.performed += instance.OnShoot;
                 @Shoot.canceled += instance.OnShoot;
-                @WeaponChange.started += instance.OnWeaponChange;
-                @WeaponChange.performed += instance.OnWeaponChange;
-                @WeaponChange.canceled += instance.OnWeaponChange;
+                @PrimaryWeapon.started += instance.OnPrimaryWeapon;
+                @PrimaryWeapon.performed += instance.OnPrimaryWeapon;
+                @PrimaryWeapon.canceled += instance.OnPrimaryWeapon;
+                @SecondaryWeapon.started += instance.OnSecondaryWeapon;
+                @SecondaryWeapon.performed += instance.OnSecondaryWeapon;
+                @SecondaryWeapon.canceled += instance.OnSecondaryWeapon;
             }
         }
     }
@@ -327,6 +344,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnMouseX(InputAction.CallbackContext context);
         void OnMouseY(InputAction.CallbackContext context);
         void OnShoot(InputAction.CallbackContext context);
-        void OnWeaponChange(InputAction.CallbackContext context);
+        void OnPrimaryWeapon(InputAction.CallbackContext context);
+        void OnSecondaryWeapon(InputAction.CallbackContext context);
     }
 }

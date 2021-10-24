@@ -46,9 +46,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "WeaponChange",
+                    "name": "PrimaryWeapon",
                     "type": "Button",
-                    "id": "df80e5de-e922-4ed9-b4a3-8347da6dbae2",
+                    "id": "9f852552-d0c1-4e8f-9cbc-0ac32f69a59d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "SecondaryWeapon",
+                    "type": "Button",
+                    "id": "9ada6b25-022c-498b-9bd8-df621d9cacef",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -156,23 +164,23 @@
                 },
                 {
                     "name": "",
-                    "id": "d4951c82-114c-4088-90ec-7cbea1949a15",
+                    "id": "f2364369-bdf4-4719-a9b2-d4d6f212f464",
                     "path": "<Keyboard>/1",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponChange",
+                    "action": "PrimaryWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "92eb8032-29b1-481f-b222-8c8d56b02fba",
+                    "id": "51ea2aff-5046-4455-8336-db63e4f18fb8",
                     "path": "<Keyboard>/2",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "WeaponChange",
+                    "action": "SecondaryWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

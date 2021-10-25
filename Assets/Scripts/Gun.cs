@@ -11,6 +11,8 @@ public class Gun : MonoBehaviour
     [SerializeField] float range = Mathf.Infinity;
     [SerializeField] float fireRate = 5f;
     [SerializeField] bool rapidFire = false;
+    //[SerializeField] int ammoMag;
+    //[SerializeField] int ammoTotal;
 
     WaitForSeconds rapidFireWait;
 
@@ -63,5 +65,10 @@ public class Gun : MonoBehaviour
     public void MuzzleFlash(bool onOrOff)
     {
         muzzleFlash.SetActive(onOrOff);
+    }
+
+    public void Reload()
+    {
+
     }
 }

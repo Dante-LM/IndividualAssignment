@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class InputManager : MonoBehaviour
 {
-    public GameObject[] weapons = new GameObject[2];
+    [SerializeField] GameObject[] weapons = new GameObject[2];
 
     [SerializeField] Movement movement;
     [SerializeField] MouseLook mouseLook;
@@ -19,12 +19,22 @@ public class InputManager : MonoBehaviour
     Coroutine fireCoroutine;
     private bool isFiring;
 
+    private Animator anim;
+
     private void Awake()
     {
+
+        anim = weapons[1].GetComponent<Animator>();
         if (weapons[0].activeInHierarchy)
+        {
             gun = weapons[0].GetComponentInChildren<Gun>();
+            //anim = weapons[0].GetComponent<Animator>();
+        }            
         else
+        {
             gun = weapons[1].GetComponentInChildren<Gun>();
+            //anim = weapons[1].GetComponent<Animator>();
+        }
 
 
         controls = new PlayerControls();
@@ -36,6 +46,7 @@ public class InputManager : MonoBehaviour
 
         groundMovement.PrimaryWeapon.performed += _ => EquipPrimary();
         groundMovement.SecondaryWeapon.performed += _ => EquipSecondary();
+        groundMovement.Reload.performed += _ => Reload();
 
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
@@ -67,9 +78,13 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
-        isFiring = true;
-        Flash(true);
-        fireCoroutine = StartCoroutine(gun.RapidFire());
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("draw"))
+        {
+            isFiring = true;
+            Flash(true);
+            anim.Play("shoot_not_empty");
+            fireCoroutine = StartCoroutine(gun.RapidFire());
+        }            
     }
 
     void StopFiring()
@@ -91,9 +106,13 @@ public class InputManager : MonoBehaviour
     {
         if (!isFiring)
         {
-            gun = weapons[0].GetComponentInChildren<Gun>();
-            weapons[0].SetActive(true);
-            weapons[1].SetActive(false);
+            anim.Play("holster");
+            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("holster"))
+            {
+                gun = weapons[0].GetComponentInChildren<Gun>();
+                weapons[0].SetActive(true);
+                weapons[1].SetActive(false);
+            }                
         }            
     }
 
@@ -105,5 +124,10 @@ public class InputManager : MonoBehaviour
             weapons[1].SetActive(true);
             weapons[0].SetActive(false);
         }            
+    }
+
+    void Reload()
+    {
+        anim.Play("reload_not_empty");
     }
 }

@@ -73,6 +73,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Reload"",
+                    ""type"": ""Button"",
+                    ""id"": ""9ad3765b-b5b3-4186-b089-f9f2782decd5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -196,6 +204,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""SecondaryWeapon"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d1102c2f-b80b-4451-89dd-ad1734e6b5f3"",
+                    ""path"": ""<Keyboard>/r"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Reload"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,6 +230,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_GroundMovement_Shoot = m_GroundMovement.FindAction("Shoot", throwIfNotFound: true);
         m_GroundMovement_PrimaryWeapon = m_GroundMovement.FindAction("PrimaryWeapon", throwIfNotFound: true);
         m_GroundMovement_SecondaryWeapon = m_GroundMovement.FindAction("SecondaryWeapon", throwIfNotFound: true);
+        m_GroundMovement_Reload = m_GroundMovement.FindAction("Reload", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -267,6 +287,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_GroundMovement_Shoot;
     private readonly InputAction m_GroundMovement_PrimaryWeapon;
     private readonly InputAction m_GroundMovement_SecondaryWeapon;
+    private readonly InputAction m_GroundMovement_Reload;
     public struct GroundMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -278,6 +299,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @Shoot => m_Wrapper.m_GroundMovement_Shoot;
         public InputAction @PrimaryWeapon => m_Wrapper.m_GroundMovement_PrimaryWeapon;
         public InputAction @SecondaryWeapon => m_Wrapper.m_GroundMovement_SecondaryWeapon;
+        public InputAction @Reload => m_Wrapper.m_GroundMovement_Reload;
         public InputActionMap Get() { return m_Wrapper.m_GroundMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -308,6 +330,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SecondaryWeapon.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
                 @SecondaryWeapon.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
                 @SecondaryWeapon.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnSecondaryWeapon;
+                @Reload.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
+                @Reload.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
+                @Reload.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
             }
             m_Wrapper.m_GroundMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -333,6 +358,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @SecondaryWeapon.started += instance.OnSecondaryWeapon;
                 @SecondaryWeapon.performed += instance.OnSecondaryWeapon;
                 @SecondaryWeapon.canceled += instance.OnSecondaryWeapon;
+                @Reload.started += instance.OnReload;
+                @Reload.performed += instance.OnReload;
+                @Reload.canceled += instance.OnReload;
             }
         }
     }
@@ -346,5 +374,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnShoot(InputAction.CallbackContext context);
         void OnPrimaryWeapon(InputAction.CallbackContext context);
         void OnSecondaryWeapon(InputAction.CallbackContext context);
+        void OnReload(InputAction.CallbackContext context);
     }
 }

@@ -102,8 +102,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba4db7f1c9e4ab44e8be01a1aa1ea1a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sensitivityX: 0.5
-  sensitivityY: 0.5
+  sensitivity: 0.5
   playerCamera: {fileID: 2617701694266454225}
   xClamp: 80
 --- !u!1 &7800435741807231284
@@ -246,7 +245,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -693616412337050050, guid: cdf835ef02230d242b7e9f8145262fbc, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: cdf835ef02230d242b7e9f8145262fbc, type: 3}
 --- !u!4 &5575967695347120603 stripped
 Transform:

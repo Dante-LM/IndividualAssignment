@@ -78,7 +78,7 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("draw"))
+        if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty")))
         {
             isFiring = true;
             Flash(true);
@@ -106,13 +106,9 @@ public class InputManager : MonoBehaviour
     {
         if (!isFiring)
         {
-            anim.Play("holster");
-            if (!anim.GetCurrentAnimatorStateInfo(0).IsName("holster"))
-            {
-                gun = weapons[0].GetComponentInChildren<Gun>();
-                weapons[0].SetActive(true);
-                weapons[1].SetActive(false);
-            }                
+            gun = weapons[0].GetComponentInChildren<Gun>();
+            weapons[0].SetActive(true);
+            weapons[1].SetActive(false);
         }            
     }
 

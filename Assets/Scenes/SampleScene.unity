@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.43814003, g: 0.4776042, b: 0.520255, a: 1}
+  m_IndirectSpecularColor: {r: 0.4381406, g: 0.4776048, b: 0.520256, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,6 +215,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8746394193055929354, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
+      propertyPath: gunBarrel
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
 --- !u!1 &705507993
@@ -323,7 +327,7 @@ GameObject:
   - component: {fileID: 1208058983}
   - component: {fileID: 1208058982}
   - component: {fileID: 1208058981}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}

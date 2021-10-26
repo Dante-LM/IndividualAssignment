@@ -26,6 +26,7 @@ public class Gun : MonoBehaviour
         rapidFireWait = new WaitForSeconds(1 / fireRate);
         muzzleFlash.SetActive(false);
         currentAmmoMag = ammoMag;
+        gunBarrel = transform.parent.parent.GetChild(2);
     }
 
     public void Shoot()

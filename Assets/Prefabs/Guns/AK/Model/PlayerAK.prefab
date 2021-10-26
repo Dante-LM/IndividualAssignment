@@ -14991,6 +14991,8 @@ MonoBehaviour:
   range: Infinity
   fireRate: 10
   rapidFire: 1
+  waitForShoot: 0
+  ammoMag: 30
   anim: {fileID: 1716849042868495430}
 --- !u!1 &1389891898736189101
 GameObject:

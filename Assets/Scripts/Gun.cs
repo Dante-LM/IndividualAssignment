@@ -13,8 +13,10 @@ public class Gun : MonoBehaviour
     private float shootSpeed;
     [SerializeField] bool rapidFire = false;
     [SerializeField] bool waitForShoot;
-    //[SerializeField] int ammoMag;
+    [SerializeField] int ammoMag;
+    private int currentAmmoMag;
     //[SerializeField] int ammoTotal;
+    private bool emptyMag = false;
 
     WaitForSeconds rapidFireWait;
 
@@ -24,6 +26,7 @@ public class Gun : MonoBehaviour
     {
         rapidFireWait = new WaitForSeconds(1 / fireRate);
         muzzleFlash.SetActive(false);
+        currentAmmoMag = ammoMag;
     }
     
     public void Shoot()
@@ -42,6 +45,8 @@ public class Gun : MonoBehaviour
                         hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
                     }
                 }
+                currentAmmoMag--;
+                MagCheck();
             }
         }
         else
@@ -58,6 +63,8 @@ public class Gun : MonoBehaviour
                         hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
                     }
                 }
+                currentAmmoMag--;
+                MagCheck();
             }
         }
     }
@@ -96,7 +103,11 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
-        anim.Play("reload_not_empty");
+        if (currentAmmoMag == 0)
+            anim.Play("reload_empty");
+        else
+            anim.Play("reload_not_empty");
+        currentAmmoMag = ammoMag;
     }
 
     public bool WeaponSwap()
@@ -109,5 +120,16 @@ public class Gun : MonoBehaviour
             isSwapping = false;
 
         return isSwapping;
+    }
+    public void MagCheck()
+    {
+        Debug.Log(currentAmmoMag);
+        if (currentAmmoMag == 0)
+            emptyMag = true;
+        else
+            emptyMag = false;
+
+        if (emptyMag)
+            Reload();
     }
 }

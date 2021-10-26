@@ -18,6 +18,7 @@ public class InputManager : MonoBehaviour
 
     Coroutine fireCoroutine;
     private bool isFiring;
+    private bool isSwapping;
 
     private void Awake()
     {
@@ -70,28 +71,29 @@ public class InputManager : MonoBehaviour
     void StartFiring()
     {
         isFiring = true;
-        Flash(true);
+        //Flash(true);
         fireCoroutine = StartCoroutine(gun.RapidFire());        
     }
 
     void StopFiring()
     {
         isFiring = false;
-        Flash(false);
+        //Flash(false);
         if (fireCoroutine != null)
         {
             StopCoroutine(fireCoroutine);
         }
     }
 
-    void Flash(bool onOrOff)
-    {
-        gun.MuzzleFlash(onOrOff);
-    }
+    //void Flash(bool onOrOff)
+    //{
+    //    gun.MuzzleFlash(onOrOff);
+    //}
 
     void EquipPrimary()
     {
-        if (!(isFiring))
+        isSwapping = gun.WeaponSwap();
+        if (!(isFiring || isSwapping))
         {
             gun = weapons[0].GetComponentInChildren<Gun>();
             weapons[0].SetActive(true);
@@ -101,7 +103,8 @@ public class InputManager : MonoBehaviour
 
     void EquipSecondary()
     {
-        if (!(isFiring))
+        isSwapping = gun.WeaponSwap();
+        if (!(isFiring || isSwapping))
         {
             gun = weapons[1].GetComponentInChildren<Gun>();
             weapons[1].SetActive(true);

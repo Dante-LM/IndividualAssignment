@@ -10,7 +10,9 @@ public class Gun : MonoBehaviour
 
     [SerializeField] float range = Mathf.Infinity;
     [SerializeField] float fireRate = 5f;
+    private float shootSpeed;
     [SerializeField] bool rapidFire = false;
+    [SerializeField] bool waitForShoot;
     //[SerializeField] int ammoMag;
     //[SerializeField] int ammoTotal;
 
@@ -26,14 +28,36 @@ public class Gun : MonoBehaviour
     
     public void Shoot()
     {
-        anim.Play("shoot_not_empty");
-        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-        RaycastHit hit;
-        if(Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
+        if (waitForShoot)
         {
-            if(hit.collider.GetComponent<Damageable>() != null)
+            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
             {
-                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                anim.Play("shoot_not_empty");
+                Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                RaycastHit hit;
+                if (Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
+                {
+                    if (hit.collider.GetComponent<Damageable>() != null)
+                    {
+                        hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
+            {
+                anim.Play("shoot_not_empty");
+                Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                RaycastHit hit;
+                if (Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
+                {
+                    if (hit.collider.GetComponent<Damageable>() != null)
+                    {
+                        hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                    }
+                }
             }
         }
     }
@@ -73,5 +97,17 @@ public class Gun : MonoBehaviour
     public void Reload()
     {
         anim.Play("reload_not_empty");
+    }
+
+    public bool WeaponSwap()
+    {
+        bool isSwapping;
+
+        if (anim.GetCurrentAnimatorStateInfo(0).IsName("draw"))
+            isSwapping = true;
+        else
+            isSwapping = false;
+
+        return isSwapping;
     }
 }

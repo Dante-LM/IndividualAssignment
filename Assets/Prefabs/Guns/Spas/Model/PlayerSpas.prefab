@@ -1318,6 +1318,7 @@ MonoBehaviour:
   range: Infinity
   fireRate: 1
   rapidFire: 0
+  waitForShoot: 1
   anim: {fileID: 2509030274082375599}
 --- !u!1 &4604526702382523823
 GameObject:

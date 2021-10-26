@@ -19,24 +19,8 @@ public class InputManager : MonoBehaviour
     Coroutine fireCoroutine;
     private bool isFiring;
 
-    private Animator anim;
-
     private void Awake()
     {
-
-        anim = weapons[1].GetComponent<Animator>();
-        if (weapons[0].activeInHierarchy)
-        {
-            gun = weapons[0].GetComponentInChildren<Gun>();
-            //anim = weapons[0].GetComponent<Animator>();
-        }            
-        else
-        {
-            gun = weapons[1].GetComponentInChildren<Gun>();
-            //anim = weapons[1].GetComponent<Animator>();
-        }
-
-
         controls = new PlayerControls();
         groundMovement = controls.GroundMovement;
 
@@ -46,7 +30,7 @@ public class InputManager : MonoBehaviour
 
         groundMovement.PrimaryWeapon.performed += _ => EquipPrimary();
         groundMovement.SecondaryWeapon.performed += _ => EquipSecondary();
-        groundMovement.Reload.performed += _ => Reload();
+        groundMovement.Reload.performed += _ => gun.Reload();
 
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
@@ -67,7 +51,14 @@ public class InputManager : MonoBehaviour
 
     void Start()
     {
-        
+        if (weapons[0].activeInHierarchy)
+        {
+            gun = weapons[0].GetComponentInChildren<Gun>();
+        }
+        else if (weapons[1].activeInHierarchy)
+        {
+            gun = weapons[1].GetComponentInChildren<Gun>();
+        }
     }
 
     void Update()
@@ -78,13 +69,9 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
-        if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty")))
-        {
-            isFiring = true;
-            Flash(true);
-            anim.Play("shoot_not_empty");
-            fireCoroutine = StartCoroutine(gun.RapidFire());
-        }            
+        isFiring = true;
+        Flash(true);
+        fireCoroutine = StartCoroutine(gun.RapidFire());        
     }
 
     void StopFiring()
@@ -104,26 +91,21 @@ public class InputManager : MonoBehaviour
 
     void EquipPrimary()
     {
-        if (!isFiring)
+        if (!(isFiring))
         {
             gun = weapons[0].GetComponentInChildren<Gun>();
             weapons[0].SetActive(true);
-            weapons[1].SetActive(false);
-        }            
+            weapons[1].SetActive(false);            
+        }
     }
 
     void EquipSecondary()
     {
-        if (!isFiring)
+        if (!(isFiring))
         {
             gun = weapons[1].GetComponentInChildren<Gun>();
             weapons[1].SetActive(true);
             weapons[0].SetActive(false);
-        }            
-    }
-
-    void Reload()
-    {
-        anim.Play("reload_not_empty");
+        }
     }
 }

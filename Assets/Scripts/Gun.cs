@@ -16,6 +16,8 @@ public class Gun : MonoBehaviour
 
     WaitForSeconds rapidFireWait;
 
+    [SerializeField] Animator anim;
+
     private void Awake()
     {
         rapidFireWait = new WaitForSeconds(1 / fireRate);
@@ -24,6 +26,7 @@ public class Gun : MonoBehaviour
     
     public void Shoot()
     {
+        anim.Play("shoot_not_empty");
         Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
         RaycastHit hit;
         if(Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
@@ -54,7 +57,7 @@ public class Gun : MonoBehaviour
                 Shoot();
                 yield return rapidFireWait;
             }
-        } 
+        }
         else
         {
             Shoot();
@@ -69,6 +72,6 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
-
+        anim.Play("reload_not_empty");
     }
 }

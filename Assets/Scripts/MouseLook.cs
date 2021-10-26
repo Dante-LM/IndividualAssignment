@@ -18,7 +18,7 @@ public class MouseLook : MonoBehaviour
 
     void Update()
     {
-        transform.Rotate(Vector3.up, (mouseX * 100)* Time.deltaTime);
+        transform.Rotate(Vector3.up, (mouseX * 1000)* Time.deltaTime);
 
         xRotation -= mouseY;
         xRotation = Mathf.Clamp(xRotation, -xClamp, xClamp);

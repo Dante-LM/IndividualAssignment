@@ -104,11 +104,14 @@ public class Gun : MonoBehaviour
 
     public void Reload()
     {
-        if (currentAmmoMag == 0)
-            anim.Play("reload_empty");
-        else
-            anim.Play("reload_not_empty");
-        currentAmmoMag = ammoMag;
+        if(!(currentAmmoMag == ammoMag))
+        {
+            if (currentAmmoMag == 0)
+                anim.Play("reload_empty");
+            else
+                anim.Play("reload_not_empty");
+            currentAmmoMag = ammoMag;
+        }            
     }
 
     public bool WeaponSwap()

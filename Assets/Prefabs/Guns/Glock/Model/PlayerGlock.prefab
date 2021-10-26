@@ -1137,7 +1137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4788797113735159269}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.0635, z: 0.2073}
+  m_LocalPosition: {x: 0, y: 0.0738, z: 0.2233}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1843673542543395293}
@@ -1732,8 +1732,10 @@ MonoBehaviour:
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
   muzzleFlash: {fileID: 4241395883316348396, guid: 6a5f63a4ecdc8c647ba51ab47e33a8fb, type: 3}
   range: Infinity
-  fireRate: 10
+  fireRate: 20
   rapidFire: 1
+  waitForShoot: 0
+  ammoMag: 20
   anim: {fileID: 541116189834522750}
 --- !u!1 &7322923652428936300
 GameObject:
@@ -2267,8 +2269,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8066228427887693516}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.15, y: -0.3, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 6986545146141894722}

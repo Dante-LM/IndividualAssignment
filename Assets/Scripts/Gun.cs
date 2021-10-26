@@ -10,7 +10,6 @@ public class Gun : MonoBehaviour
 
     [SerializeField] float range = Mathf.Infinity;
     [SerializeField] float fireRate = 5f;
-    private float shootSpeed;
     [SerializeField] bool rapidFire = false;
     [SerializeField] bool waitForShoot;
     [SerializeField] int ammoMag;
@@ -28,12 +27,12 @@ public class Gun : MonoBehaviour
         muzzleFlash.SetActive(false);
         currentAmmoMag = ammoMag;
     }
-    
+
     public void Shoot()
     {
         if (waitForShoot)
         {
-            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
+            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
             {
                 anim.Play("shoot_not_empty");
                 Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
@@ -46,12 +45,13 @@ public class Gun : MonoBehaviour
                     }
                 }
                 currentAmmoMag--;
-                MagCheck();
+                if (MagCheck())
+                    Reload();
             }
         }
         else
         {
-            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
+            if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
             {
                 anim.Play("shoot_not_empty");
                 Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
@@ -64,7 +64,8 @@ public class Gun : MonoBehaviour
                     }
                 }
                 currentAmmoMag--;
-                MagCheck();
+                if (MagCheck())
+                    Reload();
             }
         }
     }
@@ -112,24 +113,21 @@ public class Gun : MonoBehaviour
 
     public bool WeaponSwap()
     {
-        bool isSwapping;
+        bool canSwap;
 
-        if (anim.GetCurrentAnimatorStateInfo(0).IsName("draw"))
-            isSwapping = true;
+        if ((anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty")))
+            canSwap = true;
         else
-            isSwapping = false;
+            canSwap = false;
 
-        return isSwapping;
+        return canSwap;
     }
-    public void MagCheck()
+    public bool MagCheck()
     {
-        Debug.Log(currentAmmoMag);
         if (currentAmmoMag == 0)
             emptyMag = true;
         else
             emptyMag = false;
-
-        if (emptyMag)
-            Reload();
+        return emptyMag;
     }
 }

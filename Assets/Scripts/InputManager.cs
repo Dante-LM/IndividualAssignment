@@ -18,7 +18,7 @@ public class InputManager : MonoBehaviour
 
     Coroutine fireCoroutine;
     private bool isFiring;
-    private bool isSwapping;
+    private bool canSwap;
 
     private void Awake()
     {
@@ -92,8 +92,8 @@ public class InputManager : MonoBehaviour
 
     void EquipPrimary()
     {
-        isSwapping = gun.WeaponSwap();
-        if (!(isFiring || isSwapping))
+        canSwap = gun.WeaponSwap();
+        if (!(isFiring || canSwap))
         {
             gun = weapons[0].GetComponentInChildren<Gun>();
             weapons[0].SetActive(true);
@@ -103,8 +103,8 @@ public class InputManager : MonoBehaviour
 
     void EquipSecondary()
     {
-        isSwapping = gun.WeaponSwap();
-        if (!(isFiring || isSwapping))
+        canSwap = gun.WeaponSwap();
+        if (!(isFiring || canSwap))
         {
             gun = weapons[1].GetComponentInChildren<Gun>();
             weapons[1].SetActive(true);

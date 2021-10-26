@@ -110,3 +110,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 5869666917065989491, guid: c15f1ab0923c31042bec5ee2a00b4a43, type: 3}
+  health: -1

@@ -19,7 +19,7 @@ public class Damageable : MonoBehaviour
 
     void Update()
     {
-        if (health == 0)
+        if (health <= 0 && this.gameObject.layer == 0)
             Destroy(this.gameObject);
     }
 }

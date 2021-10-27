@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        Debug.Log(transform.GetChild(0).GetChild(0));
         weapons[0] = transform.GetChild(0).GetChild(0).gameObject;
         weapons[1] = transform.GetChild(0).GetChild(1).gameObject;
         controls = new PlayerControls();
@@ -73,6 +72,7 @@ public class InputManager : MonoBehaviour
 
     void StartFiring()
     {
+        gun.isFiring = true;
         isFiring = true;
         //Flash(true);
         fireCoroutine = StartCoroutine(gun.RapidFire());        
@@ -80,6 +80,7 @@ public class InputManager : MonoBehaviour
 
     void StopFiring()
     {
+        gun.isFiring = false;
         isFiring = false;
         //Flash(false);
         if (fireCoroutine != null)

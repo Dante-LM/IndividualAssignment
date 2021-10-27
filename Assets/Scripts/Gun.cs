@@ -4,20 +4,30 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
+    [Header("Gun Components")]
     public Transform gunBarrel;
     public Transform bulletTracer;
     public GameObject muzzleFlash;
 
-    [SerializeField] float range = Mathf.Infinity;
+    [Header("Gun Variables")]
+    [SerializeField] float range = 50f;
     [SerializeField] float fireRate = 5f;
     [SerializeField] bool rapidFire = false;
+    WaitForSeconds rapidFireWait;
     [SerializeField] bool waitForShoot;
+    private float inaccuracyModifier = 1;
+
     [SerializeField] int ammoMag;
     private int currentAmmoMag;
     //[SerializeField] int ammoTotal;
     private bool emptyMag = false;
+    [HideInInspector]
+    public bool isFiring = false;
 
-    WaitForSeconds rapidFireWait;
+    [Header("Shotgun")]
+    [SerializeField] bool shotgun = false;
+    [SerializeField] int pelletsPerShot = 6;
+    [SerializeField] float pelletSpread;
 
     [SerializeField] Animator anim;
 
@@ -26,7 +36,6 @@ public class Gun : MonoBehaviour
         rapidFireWait = new WaitForSeconds(1 / fireRate);
         muzzleFlash.SetActive(false);
         currentAmmoMag = ammoMag;
-        gunBarrel = transform.parent.parent.GetChild(2);
     }
 
     public void Shoot()
@@ -36,15 +45,36 @@ public class Gun : MonoBehaviour
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
             {
                 anim.Play("shoot_not_empty");
-                Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                RaycastHit hit;
-                if (Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
+                if (shotgun)
                 {
-                    if (hit.collider.GetComponent<Damageable>() != null)
+                    for (int i = 0; i < pelletsPerShot; i++)
                     {
-                        hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                        RaycastHit hit;
+                        if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
+                        {
+                            if (hit.collider.GetComponent<Damageable>() != null)
+                            {
+                                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                            }
+                        }
                     }
                 }
+                else
+                {
+                    Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
+                    {
+                        if (hit.collider.GetComponent<Damageable>() != null)
+                        {
+                            hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                        }
+                    }
+                    inaccuracyModifier += 0.25f;
+                }
+                    
                 currentAmmoMag--;
                 if (MagCheck())
                     Reload();
@@ -55,14 +85,34 @@ public class Gun : MonoBehaviour
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
             {
                 anim.Play("shoot_not_empty");
-                Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                RaycastHit hit;
-                if (Physics.Raycast(gunBarrel.position, gunBarrel.forward, out hit, range))
+                if (shotgun)
                 {
-                    if (hit.collider.GetComponent<Damageable>() != null)
+                    for (int i = 0; i < pelletsPerShot; i++)
                     {
-                        hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                        RaycastHit hit;
+                        if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
+                        {
+                            if (hit.collider.GetComponent<Damageable>() != null)
+                            {
+                                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                            }
+                        }
                     }
+                }
+                else
+                {
+                    Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+                    RaycastHit hit;
+
+                    if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
+                    {
+                        if (hit.collider.GetComponent<Damageable>() != null)
+                        {
+                            hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
+                        }
+                    }
+                    inaccuracyModifier += 0.25f;
                 }
                 currentAmmoMag--;
                 if (MagCheck())
@@ -73,12 +123,20 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-
+        gunBarrel = transform.parent.parent.GetChild(2);
     }
 
     void Update()
     {
+        AccuracyCheck();
+    }
 
+    void AccuracyCheck()
+    {
+        if (!isFiring)
+        {
+            inaccuracyModifier = 1;
+        }
     }
 
     public IEnumerator RapidFire()
@@ -133,5 +191,31 @@ public class Gun : MonoBehaviour
         else
             emptyMag = false;
         return emptyMag;
+    }
+    
+    Vector3 GetShootingDirection()
+    {
+        if (shotgun)
+        {
+            Vector3 targetPos = gunBarrel.position + gunBarrel.forward * range;
+            targetPos = new Vector3(
+                targetPos.x + Random.Range(-pelletSpread, pelletSpread),
+                targetPos.y + Random.Range(-pelletSpread, pelletSpread),
+                targetPos.z + Random.Range(-pelletSpread, pelletSpread));
+
+            Vector3 direction = targetPos - gunBarrel.position;
+            return direction.normalized;
+        }
+        else
+        {
+            Vector3 targetPos = gunBarrel.position + gunBarrel.forward * range;
+            targetPos = new Vector3(
+                targetPos.x + Random.Range(-inaccuracyModifier, inaccuracyModifier),
+                targetPos.y + Random.Range(-inaccuracyModifier, inaccuracyModifier),
+                targetPos.z + Random.Range(-inaccuracyModifier, inaccuracyModifier));
+
+            Vector3 direction = targetPos - gunBarrel.position;
+            return direction.normalized;
+        }
     }
 }

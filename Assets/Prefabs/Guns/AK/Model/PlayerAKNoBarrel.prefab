@@ -245,7 +245,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3613150810313823938}
-  - component: {fileID: 4268728832581905073}
+  - component: {fileID: 4572004293568500542}
   m_Layer: 0
   m_Name: ak
   m_TagString: Untagged
@@ -273,7 +273,7 @@ Transform:
   m_Father: {fileID: 5132312857913856601}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4268728832581905073
+--- !u!114 &4572004293568500542
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -288,11 +288,14 @@ MonoBehaviour:
   gunBarrel: {fileID: 0}
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
   muzzleFlash: {fileID: 2183948405632850454}
-  range: Infinity
+  range: 50
   fireRate: 20
   rapidFire: 1
   waitForShoot: 0
+  inaccuracyDistance: 2
   ammoMag: 30
+  shotgun: 0
+  bulletsPerShot: 6
   anim: {fileID: 962348015141027897}
 --- !u!1 &831610953691565061
 GameObject:

@@ -16678,11 +16678,15 @@ MonoBehaviour:
   gunBarrel: {fileID: 0}
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
   muzzleFlash: {fileID: 4241395883316348396, guid: 6a5f63a4ecdc8c647ba51ab47e33a8fb, type: 3}
-  range: Infinity
-  fireRate: 50
+  range: 50
+  fireRate: 40
   rapidFire: 1
   waitForShoot: 0
+  inaccuracyDistance: 1
   ammoMag: 20
+  isFiring: 0
+  shotgun: 0
+  bulletsPerShot: 6
   anim: {fileID: 1372527556059872904}
 --- !u!1 &8695370545418664446
 GameObject:

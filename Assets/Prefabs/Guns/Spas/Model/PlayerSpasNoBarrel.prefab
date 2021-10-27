@@ -536,6 +536,11 @@ MonoBehaviour:
   rapidFire: 0
   waitForShoot: 1
   ammoMag: 7
+  ammoTotal: 21
+  currentAmmoMag: 0
+  currentAmmotTotal: 0
+  emptyMag: 0
+  ammoText: {fileID: 0}
   isFiring: 0
   shotgun: 1
   pelletsPerShot: 6

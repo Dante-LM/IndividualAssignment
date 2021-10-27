@@ -18,9 +18,13 @@ public class Gun : MonoBehaviour
     private float inaccuracyModifier = 1;
 
     [SerializeField] int ammoMag;
-    private int currentAmmoMag;
-    //[SerializeField] int ammoTotal;
-    private bool emptyMag = false;
+    [SerializeField] int ammoTotal;
+
+    [HideInInspector] public int currentAmmoMag;
+    [HideInInspector] public int currentAmmotTotal;
+    [HideInInspector] public bool emptyMag = false;
+    [HideInInspector] public GameObject ammoText;
+
     [HideInInspector]
     public bool isFiring = false;
 
@@ -36,6 +40,7 @@ public class Gun : MonoBehaviour
         rapidFireWait = new WaitForSeconds(1 / fireRate);
         muzzleFlash.SetActive(false);
         currentAmmoMag = ammoMag;
+        currentAmmotTotal = ammoTotal;
     }
 
     public void Shoot()
@@ -44,7 +49,11 @@ public class Gun : MonoBehaviour
         {
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
             {
-                anim.Play("shoot_not_empty");
+                if (currentAmmoMag > 1)
+                    anim.Play("shoot_not_empty");
+                else
+                    anim.Play("shoot_empty");
+
                 if (shotgun)
                 {
                     for (int i = 0; i < pelletsPerShot; i++)
@@ -84,7 +93,11 @@ public class Gun : MonoBehaviour
         {
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
             {
-                anim.Play("shoot_not_empty");
+                if(currentAmmoMag > 0)
+                    anim.Play("shoot_not_empty");
+                else
+                    anim.Play("shoot_empty");
+
                 if (shotgun)
                 {
                     for (int i = 0; i < pelletsPerShot; i++)
@@ -124,11 +137,18 @@ public class Gun : MonoBehaviour
     void Start()
     {
         gunBarrel = transform.parent.parent.GetChild(2);
+        ammoText = transform.parent.parent.GetChild(3).transform.GetChild(0).gameObject;
     }
 
     void Update()
     {
         AccuracyCheck();
+        UpdateAmmo();
+    }
+
+    void UpdateAmmo()
+    {
+        ammoText.GetComponent<UnityEngine.UI.Text>().text = string.Format("{0}/{1}", currentAmmoMag, currentAmmotTotal);
     }
 
     void AccuracyCheck()

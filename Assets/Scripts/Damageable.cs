@@ -14,12 +14,12 @@ public class Damageable : MonoBehaviour
     public void TakeDamage(Vector3 hitPos, Vector3 hitNormal)
     {        
         Instantiate(hitEffect, hitPos, Quaternion.LookRotation(hitNormal));
-        health--;        
+        health--;
     }
 
     void Update()
     {
-        if (health <= 0 && this.gameObject.layer == 0)
+        if (health <= 0 && this.gameObject.tag == "Target")
             Destroy(this.gameObject);
     }
 }

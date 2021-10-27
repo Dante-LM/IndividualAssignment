@@ -135,7 +135,7 @@ public class Gun : MonoBehaviour
     {
         if (!isFiring)
         {
-            inaccuracyModifier = 1;
+            inaccuracyModifier = 0.25f;
         }
     }
 

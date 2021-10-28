@@ -136,8 +136,8 @@ public class Gun : MonoBehaviour
 
     void Start()
     {
-        gunBarrel = transform.parent.parent.GetChild(2);
-        ammoText = transform.parent.parent.GetChild(3).transform.GetChild(0).gameObject;
+        gunBarrel = GameObject.FindWithTag("barrel").transform;
+        ammoText = GameObject.FindWithTag("AmmoUI");
     }
 
     void Update()

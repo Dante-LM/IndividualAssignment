@@ -22,8 +22,8 @@ public class InputManager : MonoBehaviour
 
     private void Awake()
     {
-        weapons[0] = transform.GetChild(0).GetChild(0).gameObject;
-        weapons[1] = transform.GetChild(0).GetChild(1).gameObject;
+        weapons = GameObject.FindGameObjectsWithTag("PlayerWeapon");
+        weapons[1].SetActive(false);
         controls = new PlayerControls();
         groundMovement = controls.GroundMovement;
 

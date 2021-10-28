@@ -10,6 +10,8 @@ TagManager:
   - PlayerWeapon
   - ScoreUI
   - GameManager
+  - FxTemporaire
+  - TimerUI
   layers:
   - Default
   - TransparentFX

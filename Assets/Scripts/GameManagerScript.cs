@@ -7,6 +7,7 @@ public class GameManagerScript : MonoBehaviour
 {
     [HideInInspector] public int score;
     [HideInInspector] public TextMeshProUGUI scoreText;
+    [HideInInspector] public TextMeshProUGUI timerText;
     [HideInInspector] public float timer;
     [HideInInspector] public GameObject[] targets;
     [HideInInspector] private Damageable targetScript;
@@ -17,12 +18,14 @@ public class GameManagerScript : MonoBehaviour
         timer = 0;
         score = 0;
         scoreText = GameObject.FindWithTag("ScoreUI").GetComponent<TextMeshProUGUI>();
+        timerText = GameObject.FindWithTag("TimerUI").GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
     {
         timer += Time.deltaTime;
-        scoreText.SetText(string.Format("Score: {0}\nTime: {1:0.00}", score, timer));
+        scoreText.SetText(string.Format("Score: {0}", score));
+        timerText.SetText(string.Format("{0:0.00}", timer));
 
         for (int i = 0; i < targets.Length; i++)
         {

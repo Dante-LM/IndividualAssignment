@@ -59,29 +59,12 @@ public class Gun : MonoBehaviour
                 {
                     for (int i = 0; i < pelletsPerShot; i++)
                     {
-                        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                        RaycastHit hit;
-                        if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
-                        {
-                            if (hit.collider.GetComponent<Damageable>() != null)
-                            {
-                                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
-                            }
-                        }
+                        RaycastDamage();
                     }
                 }
                 else
                 {
-                    Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
-                    {
-                        if (hit.collider.GetComponent<Damageable>() != null)
-                        {
-                            hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
-                        }
-                    }
+                    RaycastDamage();
                     inaccuracyModifier += 0.25f;
                 }
                     
@@ -103,34 +86,31 @@ public class Gun : MonoBehaviour
                 {
                     for (int i = 0; i < pelletsPerShot; i++)
                     {
-                        Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                        RaycastHit hit;
-                        if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
-                        {
-                            if (hit.collider.GetComponent<Damageable>() != null)
-                            {
-                                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
-                            }
-                        }
+                        RaycastDamage();
                     }
                 }
                 else
                 {
-                    Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
-                    RaycastHit hit;
-
-                    if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
-                    {
-                        if (hit.collider.GetComponent<Damageable>() != null)
-                        {
-                            hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
-                        }
-                    }
+                    RaycastDamage();
                     inaccuracyModifier += 0.25f;
                 }
                 currentAmmoMag--;
                 if (MagCheck())
                     Reload();
+            }
+        }
+    }
+
+    void RaycastDamage()
+    {
+        //Instantiate(bulletTracer, gunBarrel.position, gunBarrel.rotation);
+        RaycastHit hit;
+
+        if (Physics.Raycast(gunBarrel.position, GetShootingDirection(), out hit, range))
+        {
+            if (hit.collider.GetComponent<Damageable>() != null)
+            {
+                hit.collider.GetComponent<Damageable>().TakeDamage(hit.point, hit.normal);
             }
         }
     }
@@ -149,7 +129,7 @@ public class Gun : MonoBehaviour
 
     void UpdateAmmo()
     {
-        ammoText.text = string.Format("{0}/{1}", currentAmmoMag, currentAmmoTotal);
+        ammoText.SetText(string.Format("{0}/{1}", currentAmmoMag, currentAmmoTotal));
     }
 
     void AccuracyCheck()

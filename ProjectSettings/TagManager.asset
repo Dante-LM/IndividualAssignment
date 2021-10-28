@@ -8,6 +8,8 @@ TagManager:
   - barrel
   - AmmoUI
   - PlayerWeapon
+  - ScoreUI
+  - GameManager
   layers:
   - Default
   - TransparentFX

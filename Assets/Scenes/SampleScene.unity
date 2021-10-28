@@ -167,6 +167,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Target (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6979514390079939526, guid: bc15b2378380a264ab47f6eec11e31a1, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 6979514390079939531, guid: bc15b2378380a264ab47f6eec11e31a1, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -225,6 +229,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6246644751462425668, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
+      propertyPath: gravity
+      value: -39.24
+      objectReference: {fileID: 0}
+    - target: {fileID: 6246644751462425668, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
+      propertyPath: jumpHeight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6246644751462425673, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
       propertyPath: m_Name
       value: Player
@@ -273,18 +285,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9093201273887122316, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
-      propertyPath: fireRate
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 9093201273887122316, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
-      propertyPath: rapidFire
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 9093201273887122316, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
-      propertyPath: waitForShoot
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ec0326161fd4da4d8238380b7e3b9aa, type: 3}
 --- !u!4 &368719189 stripped
@@ -302,6 +302,10 @@ PrefabInstance:
     - target: {fileID: 6979514390079939526, guid: bc15b2378380a264ab47f6eec11e31a1, type: 3}
       propertyPath: m_Name
       value: Target (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6979514390079939526, guid: bc15b2378380a264ab47f6eec11e31a1, type: 3}
+      propertyPath: m_Layer
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6979514390079939531, guid: bc15b2378380a264ab47f6eec11e31a1, type: 3}
       propertyPath: m_RootOrder

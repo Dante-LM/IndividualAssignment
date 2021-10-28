@@ -289,13 +289,13 @@ MonoBehaviour:
   bulletTracer: {fileID: 8012118440197558412, guid: d01af51e3ae128c4cbc74ba5bc1d16aa, type: 3}
   muzzleFlash: {fileID: 2183948405632850454}
   range: 50
-  fireRate: 20
+  fireRate: 15
   rapidFire: 1
   waitForShoot: 0
   ammoMag: 30
   ammoTotal: 90
   currentAmmoMag: 0
-  currentAmmotTotal: 0
+  currentAmmoTotal: 0
   emptyMag: 0
   ammoText: {fileID: 0}
   isFiring: 0

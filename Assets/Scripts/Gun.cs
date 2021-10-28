@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -21,9 +22,9 @@ public class Gun : MonoBehaviour
     [SerializeField] int ammoTotal;
 
     [HideInInspector] public int currentAmmoMag;
-    [HideInInspector] public int currentAmmotTotal;
+    [HideInInspector] public int currentAmmoTotal;
     [HideInInspector] public bool emptyMag = false;
-    [HideInInspector] public GameObject ammoText;
+    [HideInInspector] public TextMeshProUGUI ammoText;
 
     [HideInInspector]
     public bool isFiring = false;
@@ -40,7 +41,7 @@ public class Gun : MonoBehaviour
         rapidFireWait = new WaitForSeconds(1 / fireRate);
         muzzleFlash.SetActive(false);
         currentAmmoMag = ammoMag;
-        currentAmmotTotal = ammoTotal;
+        currentAmmoTotal = ammoTotal;
     }
 
     public void Shoot()
@@ -137,7 +138,7 @@ public class Gun : MonoBehaviour
     void Start()
     {
         gunBarrel = GameObject.FindWithTag("barrel").transform;
-        ammoText = GameObject.FindWithTag("AmmoUI");
+        ammoText = GameObject.FindWithTag("AmmoUI").GetComponent<TextMeshProUGUI>();
     }
 
     void Update()
@@ -148,7 +149,7 @@ public class Gun : MonoBehaviour
 
     void UpdateAmmo()
     {
-        ammoText.GetComponent<UnityEngine.UI.Text>().text = string.Format("{0}/{1}", currentAmmoMag, currentAmmotTotal);
+        ammoText.text = string.Format("{0}/{1}", currentAmmoMag, currentAmmoTotal);
     }
 
     void AccuracyCheck()

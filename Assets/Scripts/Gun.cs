@@ -9,6 +9,7 @@ public class Gun : MonoBehaviour
     public Transform gunBarrel;
     public Transform bulletTracer;
     public GameObject muzzleFlash;
+    [SerializeField] Animator anim;
 
     [Header("Gun Variables")]
     [SerializeField] float range = 50f;
@@ -31,10 +32,15 @@ public class Gun : MonoBehaviour
 
     [Header("Shotgun")]
     [SerializeField] bool shotgun = false;
+    [SerializeField] bool pump = false;
     [SerializeField] int pelletsPerShot = 6;
     [SerializeField] float pelletSpread;
 
-    [SerializeField] Animator anim;
+    [Header("Audio")]
+    [SerializeField] AudioSource fireAudio;
+    [SerializeField] public AudioSource readyAudio;
+    [SerializeField] AudioSource reloadAudio;
+    [SerializeField] AudioSource emptyReloadAudio;
 
     private void Awake()
     {
@@ -50,10 +56,7 @@ public class Gun : MonoBehaviour
         {
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw") || anim.GetCurrentAnimatorStateInfo(0).IsName("shoot_not_empty")))
             {
-                if (currentAmmoMag > 1)
-                    anim.Play("shoot_not_empty");
-                else
-                    anim.Play("shoot_empty");
+                CheckLastShot();
 
                 if (shotgun)
                 {
@@ -77,10 +80,7 @@ public class Gun : MonoBehaviour
         {
             if (!(anim.GetCurrentAnimatorStateInfo(0).IsName("reload_not_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("reload_empty") || anim.GetCurrentAnimatorStateInfo(0).IsName("draw")))
             {
-                if(currentAmmoMag > 0)
-                    anim.Play("shoot_not_empty");
-                else
-                    anim.Play("shoot_empty");
+                CheckLastShot();
 
                 if (shotgun)
                 {
@@ -115,10 +115,34 @@ public class Gun : MonoBehaviour
         }
     }
 
+    void CheckLastShot()
+    {
+        if (currentAmmoMag > 1)
+            anim.Play("shoot_not_empty");
+        else
+            anim.Play("shoot_empty");
+
+        fireAudio.Stop();
+        fireAudio.PlayOneShot(fireAudio.clip);
+
+        if (pump)
+        {
+            StartCoroutine(WaitForSound(fireAudio.clip));
+        }
+    }
+
+    public IEnumerator WaitForSound(AudioClip audio)
+    {
+        //yield return new WaitWhile(() => fireAudio.isPlaying == false);
+        yield return new WaitForSeconds(fireAudio.clip.length - 1.25f);
+        emptyReloadAudio.PlayOneShot(emptyReloadAudio.clip);
+    }
+
     void Start()
     {
         gunBarrel = GameObject.FindWithTag("barrel").transform;
         ammoText = GameObject.FindWithTag("AmmoUI").GetComponent<TextMeshProUGUI>();
+        readyAudio.PlayOneShot(readyAudio.clip);
     }
 
     void Update()
@@ -167,11 +191,21 @@ public class Gun : MonoBehaviour
         if(!(currentAmmoMag == ammoMag))
         {
             if (currentAmmoMag == 0)
+            {
                 anim.Play("reload_empty");
+                if(shotgun)
+                    reloadAudio.PlayOneShot(reloadAudio.clip);
+                else
+                    emptyReloadAudio.PlayOneShot(emptyReloadAudio.clip);
+            }
             else
+            {
                 anim.Play("reload_not_empty");
+                reloadAudio.PlayOneShot(reloadAudio.clip);
+            }
             currentAmmoMag = ammoMag;
-        }            
+        }
+        inaccuracyModifier = 0.25f;
     }
 
     public bool WeaponSwap()

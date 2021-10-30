@@ -101,7 +101,8 @@ public class InputManager : MonoBehaviour
         {
             gun = weapons[0].GetComponentInChildren<Gun>();
             weapons[0].SetActive(true);
-            weapons[1].SetActive(false);            
+            weapons[1].SetActive(false);
+            gun.readyAudio.PlayOneShot(gun.readyAudio.clip);
         }
     }
 
@@ -113,6 +114,7 @@ public class InputManager : MonoBehaviour
             gun = weapons[1].GetComponentInChildren<Gun>();
             weapons[1].SetActive(true);
             weapons[0].SetActive(false);
+            gun.readyAudio.PlayOneShot(gun.readyAudio.clip);
         }
     }
 }

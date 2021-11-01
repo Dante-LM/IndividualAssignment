@@ -550,7 +550,7 @@ MonoBehaviour:
   shotgun: 1
   pump: 1
   pelletsPerShot: 6
-  pelletSpread: 2
+  pelletSpread: 3
   fireAudio: {fileID: 6142028131454928553}
   readyAudio: {fileID: 3017190005169844197}
   reloadAudio: {fileID: 2040653704985527557}
@@ -1922,7 +1922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6475477818618431931
 Transform:
   m_ObjectHideFlags: 0

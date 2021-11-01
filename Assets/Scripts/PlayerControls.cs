@@ -81,6 +81,14 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Pickup"",
+                    ""type"": ""Button"",
+                    ""id"": ""0d616173-2d21-4f71-b4a7-a2afbbb1a964"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -215,6 +223,17 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                     ""action"": ""Reload"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0ac9a92e-24c3-48f9-a84a-3951e1f26f16"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Pickup"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -231,6 +250,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         m_GroundMovement_PrimaryWeapon = m_GroundMovement.FindAction("PrimaryWeapon", throwIfNotFound: true);
         m_GroundMovement_SecondaryWeapon = m_GroundMovement.FindAction("SecondaryWeapon", throwIfNotFound: true);
         m_GroundMovement_Reload = m_GroundMovement.FindAction("Reload", throwIfNotFound: true);
+        m_GroundMovement_Pickup = m_GroundMovement.FindAction("Pickup", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -288,6 +308,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
     private readonly InputAction m_GroundMovement_PrimaryWeapon;
     private readonly InputAction m_GroundMovement_SecondaryWeapon;
     private readonly InputAction m_GroundMovement_Reload;
+    private readonly InputAction m_GroundMovement_Pickup;
     public struct GroundMovementActions
     {
         private @PlayerControls m_Wrapper;
@@ -300,6 +321,7 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         public InputAction @PrimaryWeapon => m_Wrapper.m_GroundMovement_PrimaryWeapon;
         public InputAction @SecondaryWeapon => m_Wrapper.m_GroundMovement_SecondaryWeapon;
         public InputAction @Reload => m_Wrapper.m_GroundMovement_Reload;
+        public InputAction @Pickup => m_Wrapper.m_GroundMovement_Pickup;
         public InputActionMap Get() { return m_Wrapper.m_GroundMovement; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -333,6 +355,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Reload.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
                 @Reload.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
                 @Reload.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnReload;
+                @Pickup.started -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPickup;
+                @Pickup.performed -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPickup;
+                @Pickup.canceled -= m_Wrapper.m_GroundMovementActionsCallbackInterface.OnPickup;
             }
             m_Wrapper.m_GroundMovementActionsCallbackInterface = instance;
             if (instance != null)
@@ -361,6 +386,9 @@ public class @PlayerControls : IInputActionCollection, IDisposable
                 @Reload.started += instance.OnReload;
                 @Reload.performed += instance.OnReload;
                 @Reload.canceled += instance.OnReload;
+                @Pickup.started += instance.OnPickup;
+                @Pickup.performed += instance.OnPickup;
+                @Pickup.canceled += instance.OnPickup;
             }
         }
     }
@@ -375,5 +403,6 @@ public class @PlayerControls : IInputActionCollection, IDisposable
         void OnPrimaryWeapon(InputAction.CallbackContext context);
         void OnSecondaryWeapon(InputAction.CallbackContext context);
         void OnReload(InputAction.CallbackContext context);
+        void OnPickup(InputAction.CallbackContext context);
     }
 }

@@ -34,6 +34,7 @@ public class InputManager : MonoBehaviour
         groundMovement.PrimaryWeapon.performed += _ => EquipPrimary();
         groundMovement.SecondaryWeapon.performed += _ => EquipSecondary();
         groundMovement.Reload.performed += _ => gun.Reload();
+        groundMovement.Pickup.performed += _ => PickUp();
 
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
@@ -97,7 +98,7 @@ public class InputManager : MonoBehaviour
     void EquipPrimary()
     {
         canSwap = gun.WeaponSwap();
-        if (!(isFiring || canSwap))
+        if (weapons[1].activeSelf && !(isFiring || canSwap))
         {
             gun = weapons[0].GetComponentInChildren<Gun>();
             weapons[0].SetActive(true);
@@ -109,12 +110,54 @@ public class InputManager : MonoBehaviour
     void EquipSecondary()
     {
         canSwap = gun.WeaponSwap();
-        if (!(isFiring || canSwap))
+        if (weapons[0].activeSelf && !(isFiring || canSwap))
         {
             gun = weapons[1].GetComponentInChildren<Gun>();
             weapons[1].SetActive(true);
             weapons[0].SetActive(false);
             gun.readyAudio.PlayOneShot(gun.readyAudio.clip);
         }
+    }
+
+    void PickUp()
+    {
+        RaycastHit vision;
+
+        if (Physics.Raycast(gun.gunBarrel.position, gun.gunBarrel.forward, out vision, 2f))
+        {
+            if (vision.collider.tag == "Gun")
+            {
+                GameObject newGun = vision.collider.GetComponent<GunPickup>().playerModel;
+                Instantiate(newGun, gun.transform.parent.position, gun.transform.rotation, gun.transform.parent.parent);
+
+                if (weapons[0].activeInHierarchy)
+                {
+                    Destroy(weapons[0]);
+                    weapons[0] = newGun;
+                    //gun = weapons[0].GetComponentInChildren<Gun>();
+                    //gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
+                    //gun.anim = gun.GetComponentInParent<Animator>();
+                }
+                else if (weapons[1].activeInHierarchy)
+                {
+                    Destroy(weapons[1]);
+                    weapons[1] = newGun;
+                    //gun = weapons[1].GetComponentInChildren<Gun>();
+                    //gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
+                    //gun.anim = gun.GetComponentInParent<Animator>();
+                }
+
+                //weapons = GameObject.FindGameObjectsWithTag("PlayerWeapon");
+                Debug.Log(weapons[0]);
+                Debug.Log(weapons[1]);
+                gun = weapons[1].GetComponentInChildren<Gun>();
+                gun.anim = gun.GetComponentInParent<Animator>();
+                //weapons[0].SetActive(true);
+                //weapons[1].SetActive(false);
+                //EquipSecondary();
+            }
+        }
+
+
     }
 }

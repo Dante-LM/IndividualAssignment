@@ -12,6 +12,7 @@ TagManager:
   - GameManager
   - FxTemporaire
   - TimerUI
+  - Gun
   layers:
   - Default
   - TransparentFX

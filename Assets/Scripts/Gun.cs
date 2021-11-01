@@ -9,7 +9,7 @@ public class Gun : MonoBehaviour
     public Transform gunBarrel;
     public Transform bulletTracer;
     public GameObject muzzleFlash;
-    [SerializeField] Animator anim;
+    public Animator anim;
 
     [Header("Gun Variables")]
     [SerializeField] float range = 50f;
@@ -143,6 +143,7 @@ public class Gun : MonoBehaviour
         gunBarrel = GameObject.FindWithTag("barrel").transform;
         ammoText = GameObject.FindWithTag("AmmoUI").GetComponent<TextMeshProUGUI>();
         readyAudio.PlayOneShot(readyAudio.clip);
+        anim = GetComponentInParent<Animator>();
     }
 
     void Update()

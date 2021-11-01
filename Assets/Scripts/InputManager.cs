@@ -133,28 +133,34 @@ public class InputManager : MonoBehaviour
                 if (weapons[0].activeInHierarchy)
                 {
                     Destroy(weapons[0]);
-                    weapons[0] = newGun;
-                    //gun = weapons[0].GetComponentInChildren<Gun>();
-                    //gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
-                    //gun.anim = gun.GetComponentInParent<Animator>();
+                    weapons = GameObject.FindGameObjectsWithTag("PlayerWeapon");
+                    Debug.Log(weapons[0]);
+                    weapons[0].SetActive(true);
+                    gun = weapons[0].GetComponentInChildren<Gun>();
+                    gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
+                    gun.anim = gun.GetComponentInParent<Animator>();
                 }
                 else if (weapons[1].activeInHierarchy)
                 {
                     Destroy(weapons[1]);
                     weapons[1] = newGun;
-                    //gun = weapons[1].GetComponentInChildren<Gun>();
-                    //gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
-                    //gun.anim = gun.GetComponentInParent<Animator>();
+                    gun = weapons[1].GetComponentInChildren<Gun>();
+                    gun.gunBarrel = gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
+                    gun.anim = gun.GetComponentInParent<Animator>();
                 }
 
-                //weapons = GameObject.FindGameObjectsWithTag("PlayerWeapon");
-                Debug.Log(weapons[0]);
-                Debug.Log(weapons[1]);
-                gun = weapons[1].GetComponentInChildren<Gun>();
-                gun.anim = gun.GetComponentInParent<Animator>();
+                ////weapons = GameObject.FindGameObjectsWithTag("PlayerWeapon");
+                //Debug.Log(weapons[0]);
+                //Debug.Log(weapons[1]);
+                //gun = weapons[0].GetComponentInChildren<Gun>();
+                //Debug.Log(gun);
+                ////gun.anim = gun.GetComponentInParent<Animator>();
+                //gun.anim = weapons[0].GetComponent<Animator>();
+                //gun.gunBarrel = GameObject.FindWithTag("barrel").transform;
+                //Debug.Log(gun.anim);
                 //weapons[0].SetActive(true);
                 //weapons[1].SetActive(false);
-                //EquipSecondary();
+                ////EquipSecondary();
             }
         }
 

@@ -542,7 +542,7 @@ MonoBehaviour:
   waitForShoot: 1
   ammoMag: 7
   ammoTotal: 21
-  currentAmmoMag: -78
+  currentAmmoMag: 3
   currentAmmoTotal: 0
   emptyMag: 0
   ammoText: {fileID: 0}
@@ -1922,7 +1922,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &6475477818618431931
 Transform:
   m_ObjectHideFlags: 0

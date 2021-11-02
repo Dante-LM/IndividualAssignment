@@ -117,7 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitEffect: {fileID: 3245767975437416453, guid: be5871ea359e9b84f9f8d0b016f0bcd0, type: 3}
   maxHealth: 6
-  respawnTime: 10
+  respawnTime: 5
   health: 0
   timeDestroyed: 0
 --- !u!222 &6738429644362254961

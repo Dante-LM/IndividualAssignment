@@ -34,7 +34,8 @@ public class InputManager : MonoBehaviour
         groundMovement.PrimaryWeapon.performed += _ => EquipPrimary();
         groundMovement.SecondaryWeapon.performed += _ => EquipSecondary();
         groundMovement.Reload.performed += _ => gun.Reload();
-        groundMovement.Pickup.performed += _ => PickUp();
+        groundMovement.Use.performed += _ => PressButton();
+        //groundMovement.Pickup.performed += _ => PickUp();
 
         groundMovement.MouseX.performed += ctx => mouseInput.x = ctx.ReadValue<float>();
         groundMovement.MouseY.performed += ctx => mouseInput.y = ctx.ReadValue<float>();
@@ -165,5 +166,11 @@ public class InputManager : MonoBehaviour
         }
 
 
+    }
+
+    void PressButton()
+    {
+        Debug.Log("E pressed");
+        gun.PressButton();
     }
 }

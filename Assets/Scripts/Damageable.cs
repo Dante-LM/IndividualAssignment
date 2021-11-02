@@ -12,16 +12,27 @@ public class Damageable : MonoBehaviour
     [SerializeField] public int maxHealth;
     [SerializeField] public int respawnTime;
     [HideInInspector] public int health;
-    [HideInInspector] RangeManager gmScript;
+    private GameObject currentSceneManager;
     [HideInInspector] public float timeDestroyed;
 
     void Start()
     {
-        health = maxHealth;
-        if(this.gameObject.tag == "Target")
+        if (maxHealth == 0)
+            maxHealth = 6;
+        else
+            health = maxHealth;
+
+        if (this.gameObject.tag == "Target")
         {
-            gmScript = GameObject.FindWithTag("GameManager").GetComponent<RangeManager>();
+            currentSceneManager = GameObject.FindGameObjectWithTag("Button");
         }
+
+        if (currentSceneManager.GetComponent<RangeManager>() != null)
+        {
+            
+        }
+        else
+            Debug.Log("No button");
     }
 
     public void TakeDamage(Vector3 hitPos, Vector3 hitNormal)
@@ -42,7 +53,7 @@ public class Damageable : MonoBehaviour
             this.gameObject.SetActive(false);
             //Destroy(this.gameObject);
             gmScript.score++;
-            timeDestroyed = gmScript.timer;
+            timeDestroyed = gmScript.targetTimer;
         }
     }
 }

@@ -13,6 +13,7 @@ TagManager:
   - FxTemporaire
   - TimerUI
   - Gun
+  - Button
   layers:
   - Default
   - TransparentFX

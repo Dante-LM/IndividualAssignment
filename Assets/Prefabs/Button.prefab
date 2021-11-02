@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7517079956890951051}
   m_Layer: 0
-  m_Name: RangeManager
-  m_TagString: GameManager
+  m_Name: Button
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6076469368061567269}
   m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -140,8 +140,8 @@ GameObject:
   - component: {fileID: 674772475021149486}
   - component: {fileID: 8830617546242255174}
   m_Layer: 0
-  m_Name: Cube
-  m_TagString: Untagged
+  m_Name: RangeManager
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -29,6 +29,7 @@ public class Gun : MonoBehaviour
 
     [HideInInspector]
     public bool isFiring = false;
+    private GameObject currentSceneManager;
 
     [Header("Shotgun")]
     [SerializeField] bool shotgun = false;
@@ -144,6 +145,7 @@ public class Gun : MonoBehaviour
         ammoText = GameObject.FindWithTag("AmmoUI").GetComponent<TextMeshProUGUI>();
         readyAudio.PlayOneShot(readyAudio.clip);
         anim = GetComponentInParent<Animator>();
+        currentSceneManager = GameObject.FindGameObjectWithTag("Button");
     }
 
     void Update()
@@ -252,6 +254,25 @@ public class Gun : MonoBehaviour
 
             Vector3 direction = targetPos - gunBarrel.position;
             return direction.normalized;
+        }
+    }
+
+    public void PressButton()
+    {
+        RaycastHit view;
+        if (Physics.Raycast(gunBarrel.position, gunBarrel.forward, out view, 3f))
+        {
+            if (view.collider.gameObject.tag == "Button")
+            {
+                if (view.collider.gameObject.GetComponent<RangeManager>() != null)
+                {
+                    currentSceneManager = view.collider.gameObject;
+                    if(!currentSceneManager.GetComponent<RangeManager>().isPlaying)
+                        currentSceneManager.GetComponent<RangeManager>().StartPlaying();
+                }
+                else
+                    Debug.Log("No button");
+            }
         }
     }
 }

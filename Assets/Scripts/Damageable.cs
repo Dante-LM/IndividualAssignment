@@ -12,7 +12,7 @@ public class Damageable : MonoBehaviour
     [SerializeField] public int maxHealth;
     [SerializeField] public int respawnTime;
     [HideInInspector] public int health;
-    [HideInInspector] GameManagerScript gmScript;
+    [HideInInspector] RangeManager gmScript;
     [HideInInspector] public float timeDestroyed;
 
     void Start()
@@ -20,7 +20,7 @@ public class Damageable : MonoBehaviour
         health = maxHealth;
         if(this.gameObject.tag == "Target")
         {
-            gmScript = GameObject.FindWithTag("GameManager").GetComponent<GameManagerScript>();
+            gmScript = GameObject.FindWithTag("GameManager").GetComponent<RangeManager>();
         }
     }
 

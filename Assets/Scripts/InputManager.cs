@@ -170,7 +170,6 @@ public class InputManager : MonoBehaviour
 
     void PressButton()
     {
-        Debug.Log("E pressed");
         gun.PressButton();
     }
 }

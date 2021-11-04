@@ -14,6 +14,7 @@ TagManager:
   - TimerUI
   - Gun
   - Button
+  - FinalScoreUI
   layers:
   - Default
   - TransparentFX

@@ -9,6 +9,7 @@ public class RangeManager : MonoBehaviour
     [HideInInspector] public int score;
     [HideInInspector] public TextMeshProUGUI scoreText;
     [HideInInspector] public TextMeshProUGUI timerText;
+    [HideInInspector] public TextMeshProUGUI finalScoreText;
     [HideInInspector] public float timer;
     [HideInInspector] public float targetTimer;
     [HideInInspector] public GameObject[] allTargets;
@@ -19,6 +20,8 @@ public class RangeManager : MonoBehaviour
     {
         scoreText = GameObject.FindWithTag("ScoreUI").GetComponent<TextMeshProUGUI>();
         timerText = GameObject.FindWithTag("TimerUI").GetComponent<TextMeshProUGUI>();
+        finalScoreText = GameObject.FindWithTag("FinalScoreUI").GetComponent<TextMeshProUGUI>();
+        finalScoreText.gameObject.SetActive(false);
     }
 
     void Update()
@@ -39,32 +42,52 @@ public class RangeManager : MonoBehaviour
                     allTargets[i].SetActive(true);
                 }
             }
+
+            if (timer <= 0)
+            {
+                isPlaying = false;
+                StartCoroutine(FinalScore());
+            }
         }
-        else
+        else if(!isPlaying)
         {
-            timer = 60;
+            for (int i = 0; i < allTargets.Length; i++)
+            {
+                Destroy(allTargets[i]);
+            }
+
+            timer = 30;
             score = 0;
+            scoreText.SetText(string.Format("Score: {0}", score));
+            timerText.SetText(string.Format("{0:0.00}", timer));
         }
     }
 
     public void StartPlaying()
     {
-        isPlaying = true;
-
-        GameObject targetParent = GameObject.Find("Targets");
-        for (int i = 0; i < 20; i++)
+        if (!finalScoreText.gameObject.activeSelf)
         {
-            Instantiate(target, new Vector3(Random.Range(-9, 9), Random.Range(1, 3), Random.Range(7.5f, 27)), new Quaternion(), targetParent.transform);
-        }
-        targetParent.tag = "Target";
-        targetParent.layer = 6;
+            isPlaying = true;
 
+            GameObject targetParent = GameObject.Find("Targets");
+            for (int i = 0; i < 20; i++)
+            {
+                Instantiate(target, new Vector3(Random.Range(-9, 9), Random.Range(1, 3), Random.Range(7.5f, 27)), new Quaternion(), targetParent.transform);
+                target.tag = "Target";
+                target.layer = 6;
+            }
 
-        allTargets = GameObject.FindGameObjectsWithTag("Target");
-        timer = 60;
-        score = 0;
+            allTargets = GameObject.FindGameObjectsWithTag("Target");
+            timer = 30;
+            score = 0;
+        }        
+    }
 
-        if (timer == 0)
-            isPlaying = false;
+    public IEnumerator FinalScore()
+    {
+        finalScoreText.gameObject.SetActive(true);
+        finalScoreText.SetText("Final Score: {0}", score);
+        yield return new WaitForSeconds(5f);
+        finalScoreText.gameObject.SetActive(false);
     }
 }

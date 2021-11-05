@@ -14,6 +14,7 @@ public class Damageable : MonoBehaviour
     [HideInInspector] public int health;
     private GameObject currentSceneManager;
     private RangeManager rangeManager;
+    private CourseManager courseManager;
     [HideInInspector] public float timeDestroyed;
 
     void Start()
@@ -30,6 +31,10 @@ public class Damageable : MonoBehaviour
             if (currentSceneManager.GetComponentInChildren<RangeManager>() != null)
             {
                 rangeManager = currentSceneManager.GetComponentInChildren<RangeManager>();
+            }
+            else if (currentSceneManager.GetComponentInChildren<CourseManager>() != null)
+            {
+                courseManager = currentSceneManager.GetComponentInChildren<CourseManager>();
             }
             else
                 Debug.Log("No button");

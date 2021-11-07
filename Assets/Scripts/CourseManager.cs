@@ -80,5 +80,6 @@ public class CourseManager : MonoBehaviour
         finalScoreText.SetText("Final Time: {0:0.00}", timer);
         yield return new WaitForSeconds(5f);
         finalScoreText.gameObject.SetActive(false);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
     }
 }

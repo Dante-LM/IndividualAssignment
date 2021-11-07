@@ -88,5 +88,6 @@ public class RangeManager : MonoBehaviour
         finalScoreText.SetText("Final Score: {0}", score);
         yield return new WaitForSeconds(5f);
         finalScoreText.gameObject.SetActive(false);
+        UnityEngine.SceneManagement.SceneManager.LoadScene(2);
     }
 }

@@ -30,8 +30,6 @@ public class RangeManager : MonoBehaviour
         {
             timer -= Time.deltaTime;
             targetTimer += Time.deltaTime;
-            scoreText.SetText(string.Format("Score: {0}", score));
-            timerText.SetText(string.Format("{0:0.00}", timer));
 
             for (int i = 0; i < allTargets.Length; i++)
             {
@@ -58,9 +56,10 @@ public class RangeManager : MonoBehaviour
 
             timer = 30;
             score = 0;
-            scoreText.SetText(string.Format("Score: {0}", score));
-            timerText.SetText(string.Format("{0:0.00}", timer));
         }
+
+        scoreText.SetText(string.Format("Score: {0}", score));
+        timerText.SetText(string.Format("{0:0.00}", timer));
     }
 
     public void StartPlaying()

@@ -270,9 +270,20 @@ public class Gun : MonoBehaviour
                     if(!currentSceneManager.GetComponent<RangeManager>().isPlaying)
                         currentSceneManager.GetComponent<RangeManager>().StartPlaying();
                 }
+                else if (view.collider.gameObject.GetComponent<CourseManager>() != null)
+                {
+                    currentSceneManager = view.collider.gameObject;
+                    if (!currentSceneManager.GetComponent<CourseManager>().isPlaying)
+                        currentSceneManager.GetComponent<CourseManager>().StartPlaying();
+                }
                 else
                     Debug.Log("No button");
             }
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log(collision);
     }
 }

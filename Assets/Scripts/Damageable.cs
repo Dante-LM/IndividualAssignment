@@ -62,6 +62,10 @@ public class Damageable : MonoBehaviour
                 rangeManager.score++;
                 timeDestroyed = rangeManager.targetTimer;
             }
+            else if(courseManager != null)
+            {
+                courseManager.score++;
+            }
         }
     }
 }

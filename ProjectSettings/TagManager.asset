@@ -15,6 +15,7 @@ TagManager:
   - Gun
   - Button
   - FinalScoreUI
+  - End Door
   layers:
   - Default
   - TransparentFX

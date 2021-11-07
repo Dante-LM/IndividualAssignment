@@ -22,4 +22,9 @@ public class MainMenu : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void OnSettingsButtonClick()
+    {
+        onSettingsClickEvent.Invoke();
+    }
 }
